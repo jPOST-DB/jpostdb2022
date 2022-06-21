@@ -59,53 +59,53 @@
         /**
          * sets target
          */
-        public static function setTarget( &$parameters ) {
-            $array = self::getParameter( 'datasets' );
-            if( $array != null ) {
-                $parameters[ 'datasets' ] = join( ',', $array );
+        public static function setTarget(&$parameters) {
+            $array = self::getParameter('datasets');
+            if($array != null) {
+                $parameters['datasets'] = join(',', $array);
             }
-            $array = self::getParameter( 'proteins' );
-            if( $array != null ) {
-                $parameters[ 'proteins' ] = join( ',', $array );
+            $array = self::getParameter('proteins');
+            if($array != null) {
+                $parameters['proteins'] = join(',', $array);
             }
 
-            $peptides = self::getParameter( 'peptides' );
-            if( $peptides != null ) {
-                $parameters[ 'peptides' ] = $peptides;
+            $peptides = self::getParameter('peptides');
+            if($peptides != null) {
+                $parameters['peptides'] = $peptides;
             }
         }
 
         /**
          * gets the global table data
          */
-        public static function getGlobalTableData( $api ) {
-            $dc = self::getParameter( 'dc' );
+        public static function getGlobalTableData($api) {
+            $dc = self::getParameter('dc');
             $url = Config::$SPARQLIST_URL . $api;
-            $parameters = array( 'line_count' => 1 );
-            self::setTarget( $parameters );
+            $parameters = array('line_count' => 1);
+            self::setTarget($parameters);
             $datasets = null;
-            if( array_key_exists( 'datasets', $parameters ) ) {
+            if(array_key_exists('datasets', $parameters)) {
                 $datasets = $parameters[ 'datasets' ];
             }
             $total = 0;
-            if( $datasets !== 'nothing' ) {
-                $data = SparqlTool::postSparqList( $url, $parameters );
-                $total = intval( $data[ 0 ][ 'line_count' ] );
+            if($datasets !== 'nothing') {
+                $data = SparqlTool::postSparqList($url, $parameters);
+                $total = intval($data[0]['line_count']);
             }
             $parameters = array();
-            self::setTarget( $parameters );
-            self::setFilterParameters( $parameters );
-            $parameters[ 'line_count' ] = 1;
+            self::setTarget($parameters);
+            self::setFilterParameters($parameters);
+            $parameters['line_count'] = 1;
             $count = 0;
-            if( $datasets !== 'nothing' ) {        
-                $data = SparqlTool::postSparqList( $url, $parameters );
-                $count = intval( $data[ 0 ][ 'line_count' ] );
+            if($datasets !== 'nothing') {        
+                $data = SparqlTool::postSparqList($url, $parameters);
+                $count = intval($data[0]['line_count']);
             }
             $data = array();
-            if( $datasets !== 'nothing' ) {
-                unset( $parameters[ 'line_count' ] );
-                self::setPageParameters( $parameters );
-                $data = SparqlTool::postSparqList( $url, $parameters );
+            if($datasets !== 'nothing') {
+                unset( $parameters['line_count']);
+                self::setPageParameters($parameters);
+                $data = SparqlTool::postSparqList($url, $parameters);
             }
             $result = array(
                 'dc'   => $dc,

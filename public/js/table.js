@@ -464,9 +464,8 @@ table.setFooters = function( name, downloadable ) {
 
     var buttonsId = name + '_buttons_box';
     tag = '<div id="' + buttonsId + '" class="page_buttons"></div>';
-    $( '#' + pagerId ).append( tag );
-
-    $( '#' + pagerId ).append( '<div style="clear: both;"></div>' );    
+    $('#' + pagerId).append(tag);
+    $('#' + pagerId).append('<div style="clear: both;"></div>');
 }
 
 // download

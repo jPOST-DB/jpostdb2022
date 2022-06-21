@@ -3,7 +3,7 @@
     $id = HtmlTool::getId();
     $params = array(
         'id' => $id,
-        'page' => 'dataset'
+        'page' => 'project'
     );
-    HtmlTool::render('dataset.html', $params);
+    HtmlTool::render('project.html', $params);
 ?>

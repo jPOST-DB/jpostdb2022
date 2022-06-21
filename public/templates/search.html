@@ -29,14 +29,16 @@
     </div>
     <div id="global_project_tab_pane" class="tab_pane global_tab_pane">
       <div>
+<!--
         <input id="global_project_text" type="text" style="width: 300px" placeholder="Keyword" />
+-->                
       </div>
       <div id="projects" class="information_table"></div>
     </div>
     <script>
       jpost.createGlobalProjectTable('projects');
     </script>
-    <div id="global_dataset_tab_pane" class="tab_pane global_tab_pane">
+    <div id="global_dataset_tab_pane" class="tab_pane global_tab_pane" style=""display: none;">
       <div>
         <input id="global_dataset_text" type="text" style="width: 300px" placeholder="Keyword" />
       </div>
@@ -58,6 +60,7 @@
       <button id="new_slice_button">New Slice...</button>
     </div>
     <script>
+      var project_keyword_id = -1;
       var dataset_keyword_id = -1;
       var protein_keyword_id = -1;
 
@@ -67,6 +70,21 @@
               jpost.openNewSliceDialogWithParameters();
           }
       );
+      $('#global_dataset_text').keyup(
+          function() {
+              if(project_keyword_id >= 0) {
+                  clearInterval(project_keyword_id);
+              }
+              project_keyword_id = setInterval(
+                  function() {
+                      jpost.updateGlobalTables();
+                      clearInterval(project_keyword_id);
+                      project_keyword_id = -1;
+                  },
+                  500
+              );
+          }
+      );      
       $('#global_dataset_text').keyup(
           function() {
               if(dataset_keyword_id >= 0) {

@@ -335,7 +335,7 @@ jpost.getFilterParameters = function() {
             if(name in names) {
                 name = names[name];
                 if(name === 'species') {
-                    if( value.indexOf('TAX_') !== 0 ) {
+                    if(value.indexOf('TAX_') !== 0) {
                         name = 'species_s';
                         if(!(name in data)) {
                             data[name] = [];
