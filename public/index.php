@@ -1,4 +1,4 @@
 <?php
     require_once __DIR__ . '/classes/HtmlTool.php';
-    HtmlTool::render( 'index.html', null );
+    HtmlTool::render('index.html', null);
 ?>

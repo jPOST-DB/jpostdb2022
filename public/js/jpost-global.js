@@ -16,7 +16,7 @@ jpost.globalTables = [];
 
 // prepare filter
 jpost.prepareFilter = function() {
-    $('#filter_title_button').click( jpost.toggleFilterForm );
+    $('#filter_title_button').click(jpost.toggleFilterForm);
 }
 
 // toggle filter form
@@ -277,6 +277,26 @@ jpost.resetFilters = function() {
     $('#filter_form').html('');
     $('#filter_chart').html('');
     jpost.addForm();
+}
+
+// create project table
+jpost.createGlobalProjectTable = function(id) {
+    table.createTable(
+        id,
+        {
+            url: 'project_table.php',
+            columns: jpost.globalProjectColumns,
+            parameters: function() {
+                var params = jpost.getFilterParameters();
+                return params;
+            },
+            countClass: 'project_table_tab_button',
+            countUpdate: function(count) {
+                return 'Project (' + count + ')';
+            }
+        },
+        true
+    );
 }
 
 // create dataset table

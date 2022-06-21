@@ -25,51 +25,29 @@
     </header>
     <article class="main">
       <div class="component main">
-<!--
-      <div class="topWarning" style="color: #da5019; font-size: 18px; font-weight: bold; text-align: center;">
-	<p>
-                jPOSTdb will be unavailable during the time shown below due to scheduled system maintenance.<br /> 
-		We thank you for your understanding and cooperation in this matter.
-	</p>
-	<p>
-		Date and Time: Thursday, December 16, 04:00 – Thursday, December 16, 06:00 (UTC+9)
-	</p>
-      </div>
--->
-<!--
-      <div class="topWarning" style="color: #da5019; font-size: 18px; font-weight: bold; text-align: center;">
-        <p>
-                jPOSTdb will be intermittently unavailable during the time shown below due to network construction.<br />
-                We thank you for your understanding and cooperation in this matter.
-        </p>
-        <p>
-                Date and Time: Wednesday, March 23, 16:00 – 17:00 (UTC+9)
-        </p>
-      </div>
--->
         <div id="search_panel" class="main_tab_field">
-<p style="font-size:16px;width:800px;"><span style="font-size:20px;font-weight:bold;">jPOSTdb</span> (Japan ProteOme STandard DataBase) is a database containing re-analysis results with unified criteria for proteome data from <a href="https://repository.jpostdb.org" style="font-weight:bold;">jPOSTrepo</a>. It provides viewers showing the frequency of detected post-translational modifications, the co-occurrence of phosphorylation sites on a peptide and peptide sharing among proteoforms.</p>
+            <p style="font-size:16px;width:800px;"><span style="font-size:20px;font-weight:bold;">jPOSTdb</span> (Japan ProteOme STandard DataBase) is a database containing re-analysis results with unified criteria for proteome data from <a href="https://repository.jpostdb.org" style="font-weight:bold;">jPOSTrepo</a>. It provides viewers showing the frequency of detected post-translational modifications, the co-occurrence of phosphorylation sites on a peptide and peptide sharing among proteoforms.</p>
             <div id="main_search_panel">
-              {{ include( "search.html" ) }}
+              {{include("search.html")}}
             </div>
             <div id="sub_search_panel">
             </div>
         </div>
         <div id="slice_panel" class="main_tab_field">
-          {{ include( "slice.html" ) }}
+          {{include("slice.html")}}
         </div>
         <div id="compare_panel" class="main_tab_field">
-          {{ include( "compare.html" ) }}
+          {{include("compare.html")}}
         </div>
         <div id="help_panel" class="main_tab_field">
-          {{ include( "help.html" ) }}
+          {{include("help.html")}}
         </div>
       </div>
     </article>
     <script>
-        jpost.openTab( 'search' );
+        jpost.openTab('search');
     </script>
-    {{ include( "footer.html" ) }}
-    {{ include( "dialogs.html" ) }}
+    {{include("footer.html")}}
+    {{include("dialogs.html")}}
   </body>
 </html>

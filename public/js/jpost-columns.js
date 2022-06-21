@@ -1,40 +1,60 @@
-// Global Dataset Table
-jpost.globalDatasetColumns = [
+// Global Project Table
+jpost.globalProjectColumns = [
     {
-        title: 'Dataset ID',
-        field: 'dataset_id',
-        format: function (dataset) {
-            var url = 'dataset.php?id=' + dataset.dataset_id;
-            var tag = '<a href="' + url + '" target="_blank">' + dataset.dataset_id + '</a>';
+        title: 'Project ID',
+        field: 'project_id',
+        format: function(project) {
+            var url = 'project.php?id=' + project.project_id;
+            var tag = '<a href="' + url + '" target="_blank">' + project.project_id + '</a>';
             return tag;
         },
         width: 200
     },
     {
-        title: 'Project ID',
-        field: 'project_id',
-        width: 200
-    },
-    {
         title: 'Project Title',
         field: 'project_title',
+        width: 600,
+    },
+    {
+        title: 'Species List',
+        field: 'species_list',
+        width: 250
+    },
+    {
+        title: '#datasets',
+        field: 'dataset_count',
+        width: 100,
+        align: 'right'
+    }
+];
+
+// Global Dataset Table
+jpost.globalDatasetColumns = [
+    {
+        title: 'Dataset ID',
+        field: 'dataset_id',
+        format: function(dataset) {
+            var url = 'dataset.php?id=' + dataset.dataset_id;
+            var tag = '<a href="' + url + '" target="_blank">' + dataset.dataset_id + '</a>';
+            return tag;
+        },
         width: 350
     },
     {
-        title: 'Project Date',
-        field: 'project_date',
-        width: 180
+        title: 'Project ID',
+        field: 'project_id',
+        width: 350
     },
     {
         title: '#proteins',
         field: 'protein_count',
-        width: 120,
+        width: 200,
         align: 'right'
     },
     {
         title: '#spectra',
         field: 'spectrum_count',
-        width: 120,
+        width: 200,
         align: 'right'
     }
 ];
