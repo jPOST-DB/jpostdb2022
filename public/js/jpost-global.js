@@ -241,7 +241,9 @@ jpost.updateFilterForm = function( id ) {
     var type = jpost.getPieChartTypeName(item);
     jpost.filterChartIds[stanzaId] = type;
     jpost.updateFilterSelections();
-    if(table.tables && table.tables['datasets'] && table.tables['proteins']) jpost.updateGlobalTables();
+    if(table.tables && table.tables['projects'] && table.tables['datasets'] && table.tables['proteins']) {
+        jpost.updateGlobalTables();
+    } 
 }
 
 // update filter selections
@@ -448,8 +450,12 @@ jpost.createGlobalProteinTable = function(id, dataset) {
 
 // update global tablesq
 jpost.updateGlobalTables = function() {
+    $('.project_table_tab_button').html('Project');
     $('.dataset_table_tab_button').html('Dataset');
     $('.protein_table_tab_button').html('Protein');
+
+    table.setPageNumber('projects', 1);
+    table.updateTable('projects');
     
     table.setPageNumber('datasets', 1);
     table.updateTable('datasets');
