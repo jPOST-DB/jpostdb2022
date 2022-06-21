@@ -1,0 +1,240 @@
+// dummy object for the namespace
+var jpost = {};
+
+// slices
+jpost.slices = [
+];
+
+// ecluded datasets
+jpost.excludedDatasets = [
+];
+
+// current slice
+jpost.slice = null;
+
+
+jpost.slice1 = null;
+jpost.slice2 = null;
+
+// filter
+jpost.filters = [
+    { title: 'Species',      name: 'species' },
+    { title: 'Sample type',  name: 'sampleType' },
+    { title: 'Cell line',    name: 'cellLine' },
+    { title: 'Organ',        name: 'organ' },
+    { title: 'Disease',      name: 'disease' },
+    { title: 'Modification', name: 'modification' },
+    { title: 'Instrument',   name: 'instrument' }
+];
+
+// issue slice ID
+jpost.issueSliceId = function() {
+    var id = 0;
+    jpost.slices.forEach(
+        function( slice ) {
+            if( slice.id > id ) {
+                id = slice.id;
+            }
+        }
+    );
+    return ( id + 1 );
+}
+
+
+
+
+
+
+
+
+// get checked slices
+jpost.getCheckedSlices = function() {
+    var array = [];
+    $( '[class="slice_tab_check"]:checked' ).map(
+        function() {
+            array.push( $( this ).val() );
+        }
+    );
+
+    slices = [];
+    array.forEach(
+        function( id ) {
+            var slice = jpost.findSlice( id );
+            if( slice !== null ) {
+                slices.push( slice );
+            }
+        }
+    );
+    return slices;
+}
+
+// operate datasets
+jpost.operateDatasets = function() {
+    var datasets = jpost.getCheckedDatasets();
+    var operation = $( '#dataset_operatin_selection' ).val();
+
+    if( operation == 'hide') {
+        datasets.forEach(
+            function( dataset ) {
+                if( !( dataset in jpost.excludedDatasets ) ) {
+                    jpost.excludedDatasets.push( dataset );
+                }
+            }
+        );
+        jpost.save();
+        jpost.updateTables();
+    }
+    else if( operation == 'show' ) {
+        datasets.forEach(
+            function( dataset ) {
+                var index = jpost.excludedDatasets.indexOf( dataset );
+                if( index >= 0 ) {
+                    jpost.excludedDatasets.splice( index, 1 );
+                }
+            }
+        );
+        jpost.save();
+        jpost.updateTables();
+    }
+    else if( operation == 'add' ) {
+        jpost.updateSliceSelection();
+        $( '#slices_dialog' ).dialog(
+            {
+                modal: true,
+                title: "Select Slices",
+                buttons: {
+                    'OK': function() {
+                        jpost.addDatasetToSlice( datasets );
+                        jpost.updateTabs();
+                        $( '#slices_dialog' ).dialog( 'close' );
+                    },
+                    'Cancel': function() {
+                        $( '#slices_dialog' ).dialog( 'close' );
+                    }
+                }
+            }
+        );
+        jpost.onChangeSliceSelection();
+    }
+}
+
+// update slice selection
+jpost.updateSliceSelection = function() {
+    $( '#slice_selection' ).html( '' );
+
+    var value = '';
+    $( '#slice_selection' ).append( '<option value="">New slice...</option>' );
+    jpost.slices.forEach(
+        function( slice ) {
+            var id = slice.id;
+            var name = slice.name;
+            $( '#slice_selection' ).append( '<option value="' + id + '">' + name + '</option>' );
+            value = id;
+        }
+    );
+    $( '#slice_selection' ).val( value );
+}
+
+// on change slice selection
+jpost.onChangeSliceSelection = function() {
+    var name = $( '#slice_selection' ).val();
+    if( name === '' ) {
+        var name = prompt( "Input the slice name." );
+        if( name !== null && name !== '' ) {
+            var slice = {
+                name: name,
+                id: jpost.issueSliceId(),
+                datasets: []
+            };
+            jpost.slices.push( slice );
+            jpost.updateSliceSelection();
+        }
+    }
+}
+
+// add slices
+jpost.addDatasetToSlice = function( datasets ) {
+    var id = $( '#slice_selection' ).val();
+    var slice = jpost.findSlice( id );
+    if( slice != null ) {
+        datasets.forEach(
+            function( dataset ) {
+                if( slice.datasets.indexOf( dataset ) < 0 ) {
+                    slice.datasets.push( dataset );
+                }                
+            }
+        );
+    }
+    jpost.save();
+}
+
+
+
+// update stanzas
+jpost.updateStanzas = function() {
+    var slice = jpost.slice;
+    if( slice == null ) {
+        return;
+    }
+    var datasets = slice.datasets.join( ' ' );
+    var stanzas = [
+        {
+            name: 'table_dataset',
+            id: 'table_dataset',
+            data: function() {
+                return { dataset: datasets };
+            }
+        },
+        {
+            name: 'chromosome_histogram',
+            id: 'chromosome_histogram',
+            data: function() {
+                return { dataset: datasets }
+            }
+        },
+        {
+            name: 'protein_evidence',
+            id: 'protein_evidence',
+            data:  function() {
+                return { dataset: datasets }
+            }
+        }
+    ];
+
+    jpost.loadStanzas( stanzas );
+    console.log( "It's underconstraction" );
+}
+
+// compare slices
+jpost.compareSlices = function( id ) {
+    var slices = jpost.getCheckedSlices();
+    if( slices.length >= 2 ) {
+        var slice1 = slices[ 0 ];
+        var slice2 = slices[ 1 ];
+
+        if( jpost.slice1 != slice1 || jpost.slice2 != slices ) {
+            jpost.slice1 = slice1;
+            jpost.slice2 = slice2;
+
+            $( '#comparison_pane' ).html( '' );
+            var stanzas = [
+                {
+                    name: 'slice_comparison',
+                    id: 'comparison_pane',
+                    data: function() {
+                        return {
+                            datasets1: slice1.datasets.join( ' ' ),
+                            datasets2: slice2.datasets.join( ' ' ),
+                            slice1: slice1.name,
+                            slice2: slice2.name
+                        };
+                    }
+                }
+            ];
+            jpost.loadStanzas( stanzas );            
+        }
+
+        $( '#content_pane' ).css( 'display', 'none' );
+        $( '#comparison_pane' ).css( 'display', 'block' );
+    }
+}

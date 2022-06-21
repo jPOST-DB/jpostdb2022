@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+  {{ include( "head.html" ) }} 
+  <body>
+    <header class="header">
+      <div class="header_inner">
+        <div class="header_left">
+          <a href="https://jpostdb.org/" class="header_logo">
+            <img src="images/logo.svg" width="100" height="100" />
+            <h1 class="header_title">DATABASE</h1>
+          </a>
+        </div>
+        <div class="header_right">
+          <nav class="header_nav">
+            <ul class="header_nav_main">
+              <li><a href="javascript:jpost.openTab( 'search' )" class="top_menu"><span class="fa fa-search"></span><br>Search</a></li>
+              <li><a href="javascript:jpost.openTab( 'slice' )" class="top_menu"><span class="fa fa-chart-area"></span><br>Slice</a></li>
+              <li><a href="javascript:jpost.openTab( 'compare' )" class="top_menu"><span class="fa fa-copy"></span><br>Compare</a></li>
+              <li><a href="javascript:jpost.openTab( 'help' )" class="top_menu"><span class="fa fa-question"></span><br>Help</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <article class="main">
+      <div class="component main">
+<!--
+      <div class="topWarning" style="color: #da5019; font-size: 18px; font-weight: bold; text-align: center;">
+	<p>
+                jPOSTdb will be unavailable during the time shown below due to scheduled system maintenance.<br /> 
+		We thank you for your understanding and cooperation in this matter.
+	</p>
+	<p>
+		Date and Time: Thursday, December 16, 04:00 – Thursday, December 16, 06:00 (UTC+9)
+	</p>
+      </div>
+-->
+<!--
+      <div class="topWarning" style="color: #da5019; font-size: 18px; font-weight: bold; text-align: center;">
+        <p>
+                jPOSTdb will be intermittently unavailable during the time shown below due to network construction.<br />
+                We thank you for your understanding and cooperation in this matter.
+        </p>
+        <p>
+                Date and Time: Wednesday, March 23, 16:00 – 17:00 (UTC+9)
+        </p>
+      </div>
+-->
+        <div id="search_panel" class="main_tab_field">
+<p style="font-size:16px;width:800px;"><span style="font-size:20px;font-weight:bold;">jPOSTdb</span> (Japan ProteOme STandard DataBase) is a database containing re-analysis results with unified criteria for proteome data from <a href="https://repository.jpostdb.org" style="font-weight:bold;">jPOSTrepo</a>. It provides viewers showing the frequency of detected post-translational modifications, the co-occurrence of phosphorylation sites on a peptide and peptide sharing among proteoforms.</p>
+            <div id="main_search_panel">
+              {{ include( "search.html" ) }}
+            </div>
+            <div id="sub_search_panel">
+            </div>
+        </div>
+        <div id="slice_panel" class="main_tab_field">
+          {{ include( "slice.html" ) }}
+        </div>
+        <div id="compare_panel" class="main_tab_field">
+          {{ include( "compare.html" ) }}
+        </div>
+        <div id="help_panel" class="main_tab_field">
+          {{ include( "help.html" ) }}
+        </div>
+      </div>
+    </article>
+    <script>
+        jpost.openTab( 'search' );
+    </script>
+    {{ include( "footer.html" ) }}
+    {{ include( "dialogs.html" ) }}
+  </body>
+</html>

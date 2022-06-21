@@ -1,0 +1,91 @@
+<div>
+  <script>
+    jpost.slice = jpost.findSliceByName( '{{ slice }}' );
+  </script>
+  {% if slice %}
+    <div class="slice_header">Slice: {{ slice }}</div>
+  {% endif %}
+
+  <h2>Protein: {{ id }}</h2>
+  <div id="table_protein"></div>
+      
+  <h3>Protein Browser</h3>
+  <div id="protein_browser"></div>
+      
+  <h3>Peptide Sharing</h3>
+  <div id="proteoform_browser"></div>
+      
+  <div id="information_pane">
+    <div class="tab_buttons_line">
+      <button id="protein_peptide_tab_button" class="protein_tab_button tab_button tab_active peptide_table_tab_button">Peptide</button>
+      <button id="protein_psm_tab_button" class="protein_tab_button tab_button psm_table_tab_button">PSM</button>
+      <script>
+        $( '#protein_peptide_tab_button' ).click( 
+            function() {
+                jpost.changeTabPanel( 'protein_peptide', 'protein' );
+            }
+        );
+        $( '#protein_psm_tab_button' ).click( 
+            function() {
+                jpost.changeTabPanel( 'protein_psm', 'protein' );
+            }
+        );
+      </script>
+      <button class="fill_blank"></button>
+      <div style="clear: both;"></div>
+    </div>
+    <div id="protein_peptide_tab_pane" class="tab_pane protein_tab_pane">
+      <form id="peptide_form" onsubmit="return false;">
+        <div id="protein_peptides" class="information_table"></div>
+      </form>
+    </div>
+    <div id="protein_psm_tab_pane" class="tab_pane protein_tab_pane" style="display: none;">
+      <form id="psm_form" onsubmit="return false;">
+        <div id="protein_psm" class="information_table"></div>
+      </form>      
+    </div>
+  </div>  
+</div>
+      
+      <script>
+          var id = '{{ id }}';
+          var stanzas = [
+              {
+                  name: 'table_protein',
+                  id: 'table_protein',
+                  data: function() {
+                      var data = { uniprot: id };
+                      if( jpost.slice !== null ) {
+                          data[ 'dataset' ] = jpost.slice.datasets.join( ' ' );
+                      }
+                      return data;
+                  }
+              },
+              {
+                  name: 'protein_browser',
+                  id: 'protein_browser',
+                  data: function() {
+                      var data = { uniprot: id };
+                      if( jpost.slice !== null ) {
+                          data[ 'dataset' ] = jpost.slice.datasets.join( ' ' );
+                      }
+                      return data;
+                  }
+              },
+              {
+                  name: 'proteoform_browser',
+                  id: 'proteoform_browser',
+                  data: function() {
+                      var data = { uniprot: id };
+                      if( jpost.slice !== null ) {
+                          data[ 'dataset' ] = jpost.slice.datasets.join( ' ' );
+                      }
+                      return data;
+                  }
+              }
+          ];   
+          jpost.loadStanzas( stanzas );
+          jpost.createProteinPeptideTable( 'protein_peptides', id );
+          jpost.createProteinPsmTable( 'protein_psm', id );
+      </script>
+      

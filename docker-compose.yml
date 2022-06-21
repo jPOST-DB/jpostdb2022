@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:1.22.0
+    depends_on:
+      - app
+    volumes: 
+      - ./conf/default.conf:/etc/nginx/conf.d/default.conf
+      - ./shared:/shared
+      - ./public:/usr/share/nginx/html
+      - ./public:/var/www/html
+    ports:
+      - 8080:80
+    
+  app:
+    image: php:7.3-fpm
+    volumes:
+      - ./conf/php.ini-development:/usr/local/etc/php/php.ini
+      - ./shared:/shared
+      - ./public:/usr/share/nginx/html
+      - ./public:/var/www/html
+      
