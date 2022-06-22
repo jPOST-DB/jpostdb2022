@@ -13,7 +13,12 @@
             foreach($bindings as $element) {
                 $object = array();
                 foreach($keys as $key) {
-                    $object[$key] = $element[$key] ['value'];
+                    if(isset($element[$key])) {
+                        $object[$key] = $element[$key] ['value'];
+                    }
+                    else {
+                        $object[$key] = '';
+                    }
                 }
                 array_push($array, $object);
             }

@@ -1,20 +1,28 @@
 <?php
-    require_once(__DIR__ . '/classes/SparqlTool.php');
-    require_once(__DIR__ . '/classes/Config.php' );
+    require_once( __DIR__ . '/classes/SparqlTool.php' );
+    require_once( __DIR__ . '/classes/HtmlTool.php' );
+    require_once( __DIR__ . '/classes/HttpTool.php' );
+    require_once( __DIR__ . '/classes/Config.php' );
 
-    $parameters = $_REQUEST;
-    $data = http_build_query($parameters);
-    $options = array(
-        'http' => array(
-            'method' => 'POST',
-            'header' => 'Content-Type: application/x-www-form-urlencoded'
-        )
-    );
+    $id = HtmlTool::getId();
+    $dc = HttpTool::getParameter('dc');
     $url = Config::$SPARQLIST_URL . 'dbi_dataset_table_in_a_project';
-    $url2 = $url . '?' . $data;
-    $result = file_get_contents( $url2, false, stream_context_create($options));
-    $objects = json_decode( $result );
+
+    $parameters = array(
+        'project' => $id
+    );
+
+    $result = SparqlTool::postSparqList($url, $parameters);
+    
+    $count = count($result);
+
+    $response = array(
+        'dc' => $dc,
+        'data' => $result,
+        'count' => $count,
+        'total' => $count
+    );
 
     header('content-type: application/json; charset=utf-8');
-    echo json_encode($result);
+    echo json_encode($response);
 ?>

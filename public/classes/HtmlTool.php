@@ -37,7 +37,7 @@ class HtmlTool {
      * @return ID
      */
     public static function getId() {
-        $id = $_REQUEST[ 'id' ];
+        $id = $_REQUEST['id'];
         return $id;
     }
 

@@ -28,7 +28,7 @@ jpost.toggleFilterForm = function() {
         $('#filter_title_icon').addClass('fa-caret-up');
     }
     else {
-        $('#filter_body').css( 'display', 'none');
+        $('#filter_body').css('display', 'none');
         $('#filter_title_icon').removeClass('fa-caret-up');
         $('#filter_title_icon').addClass('fa-caret-down');
     }
@@ -528,6 +528,24 @@ jpost.openGlobalPeptide = function(peptide) {
     $('#sub_search_panel').load(url);
     $('#main_search_panel').css('display', 'none');
     $('#sub_search_panel').css('display', 'block');    
+}
+
+// create project dataset table
+jpost.createProjectDatasetTable = function(id, project) {
+    table.createTable(
+        id,
+        {
+            url: 'project_datasets.php',
+            columns: jpost.projectDatasetColumns,
+            parameters: function() {
+                return {id: project}
+            },
+            countClass: 'project_dataset_table_tab_button',
+            countUpdate: function(count) {
+                return 'Dataset (' + count + ')';
+            }
+        }
+    );
 }
 
 // create dataset protein table

@@ -28,17 +28,12 @@
       </script>
     </div>
     <div id="global_project_tab_pane" class="tab_pane global_tab_pane">
-      <div>
-<!--
-        <input id="global_project_text" type="text" style="width: 300px" placeholder="Keyword" />
--->                
-      </div>
       <div id="projects" class="information_table"></div>
     </div>
     <script>
       jpost.createGlobalProjectTable('projects');
     </script>
-    <div id="global_dataset_tab_pane" class="tab_pane global_tab_pane" style=""display: none;">
+    <div id="global_dataset_tab_pane" class="tab_pane global_tab_pane" style="display: none;">
       <div>
         <input id="global_dataset_text" type="text" style="width: 300px" placeholder="Keyword" />
       </div>
@@ -60,7 +55,6 @@
       <button id="new_slice_button">New Slice...</button>
     </div>
     <script>
-      var project_keyword_id = -1;
       var dataset_keyword_id = -1;
       var protein_keyword_id = -1;
 

@@ -43,6 +43,11 @@ jpost.globalDatasetColumns = [
     {
         title: 'Project ID',
         field: 'project_id',
+        format: function(dataset) {
+            var url = 'project.php?id=' + dataset.project_id;
+            var tag = '<a href="' + url + '" target="_blank">' + dataset.project_id + '</a>';
+            return tag;
+        },
         width: 350
     },
     {
@@ -196,6 +201,68 @@ jpost.globalPsmColumns = [
         width: 350,
     }
 ];
+
+// Project Dataset Table
+jpost.projectDatasetColumns = [
+    {
+        title: 'Dataset ID',
+        field: 'dataset_id',
+        width: 200
+    },
+    {
+        title: 'Species',
+        field: 'species',
+        width: 250,
+    },
+    {
+        title: 'Cell line',
+        field: 'cell_line',
+        width: 200
+    },
+    {
+        title: 'Organ',
+        field: 'organ',
+        width: 200
+    },
+    {
+        title: 'Disease',
+        field: 'disease',
+        width: 200
+    },
+    {
+        title: 'Fractionation',
+        field: 'fractionation',
+        width: 200
+    },
+    {
+        title: '#proteins',
+        field: 'protein_count',
+        width: 120,
+        align: 'right'
+    },
+    {
+        title: '#peptides',
+        field: 'peptide_count',
+        width: 120,
+        align: 'right'
+    },
+    {
+        title: '#spectra',
+        field: 'spactrum_count',
+        width: 120,
+        align: 'right'
+    },
+    {
+        title: '#raw files',
+        field: 'raw_file_name',
+        width: 120,
+        format: function(dataset) {
+            files = dataset['raw_file_name'].split(',');
+            return '' + files.length;
+        },
+        align: 'right'
+    }
+]
 
 // Slice Dataset Table
 jpost.sliceDatasetColumns = [

@@ -85,7 +85,7 @@
             self::setTarget($parameters);
             $datasets = null;
             if(array_key_exists('datasets', $parameters)) {
-                $datasets = $parameters[ 'datasets' ];
+                $datasets = $parameters['datasets'];
             }
             $total = 0;
             if($datasets !== 'nothing') {
