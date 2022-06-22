@@ -211,7 +211,7 @@ jpost.projectDatasetColumns = [
             var url = 'dataset.php?id=' + project.dataset_id;
             var tag = '<a href="' + url + '" target="_blank">' + project.dataset_id + '</a>';
             return tag;
-        },        
+        },
         width: 200
     },
     {
@@ -274,11 +274,21 @@ jpost.sliceDatasetColumns = [
     {
         title: 'Dataset ID',
         field: 'dataset_id',
+        format: function(dataset) {
+            var url = 'dataset.php?id=' + dataset.dataset_id;
+            var tag = '<a href="' + url + '" target="_blank">' + dataset.dataset_id + '</a>';
+            return tag;
+        },
         width: 200
     },
     {
         title: 'Project ID',
         field: 'project_id',
+        format: function(dataset) {
+            var url = 'project.php?id=' + dataset.project_id;
+            var tag = '<a href="' + url + '" target="_blank">' + dataset.project_id + '</a>';
+            return tag;
+        },        
         width: 200
     },
     {
