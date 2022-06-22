@@ -207,6 +207,11 @@ jpost.projectDatasetColumns = [
     {
         title: 'Dataset ID',
         field: 'dataset_id',
+        format: function(project) {
+            var url = 'dataset.php?id=' + project.dataset_id;
+            var tag = '<a href="' + url + '" target="_blank">' + project.dataset_id + '</a>';
+            return tag;
+        },        
         width: 200
     },
     {
