@@ -359,6 +359,7 @@ jpost.getFilterParameters = function() {
         }
     );
 
+    data.project_keywords = $('#global_project_text').val();
     data.dataset_keywords = $('#global_dataset_text').val();
     data.protein_keywords = $('#global_protein_text').val();
 
@@ -449,7 +450,7 @@ jpost.createGlobalProteinTable = function(id, dataset) {
 }
 
 // update global tablesq
-jpost.updateGlobalTables = function() {
+jpost.updateGlobalTables = function(updateStanza = true) {
     $('.project_table_tab_button').html('Project');
     $('.dataset_table_tab_button').html('Dataset');
     $('.protein_table_tab_button').html('Protein');
@@ -463,7 +464,9 @@ jpost.updateGlobalTables = function() {
     table.setPageNumber('proteins', 1);
     table.updateTable('proteins');
 
-    jpost.updatePieCharts();
+    if(updateStanza) {
+        jpost.updatePieCharts();
+    }
 }
 
 // update pie charts
@@ -542,7 +545,11 @@ jpost.createProjectDatasetTable = function(id, project) {
             },
             countClass: 'project_dataset_table_tab_button',
             countUpdate: function(count) {
-                return 'Dataset (' + count + ')';
+                var string = 'Dataset';
+                if(count > 1) {
+                    string = string + '<br>(' + count + ' biological replicates)';
+                }
+                return string;
             }
         }
     );

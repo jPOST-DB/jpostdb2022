@@ -28,6 +28,9 @@
       </script>
     </div>
     <div id="global_project_tab_pane" class="tab_pane global_tab_pane">
+      <div>
+        <input id="global_project_text" type="text" style="width: 300px" placeholder="Keyword" />
+      </div>
       <div id="projects" class="information_table"></div>
     </div>
     <script>
@@ -55,6 +58,7 @@
       <button id="new_slice_button">New Slice...</button>
     </div>
     <script>
+      var project_keyword_id = -1;
       var dataset_keyword_id = -1;
       var protein_keyword_id = -1;
 
@@ -64,14 +68,14 @@
               jpost.openNewSliceDialogWithParameters();
           }
       );
-      $('#global_dataset_text').keyup(
+      $('#global_project_text').keyup(
           function() {
               if(project_keyword_id >= 0) {
                   clearInterval(project_keyword_id);
               }
               project_keyword_id = setInterval(
                   function() {
-                      jpost.updateGlobalTables();
+                      jpost.updateGlobalTables(false);
                       clearInterval(project_keyword_id);
                       project_keyword_id = -1;
                   },
@@ -86,7 +90,7 @@
               }
               dataset_keyword_id = setInterval(
                   function() {
-                      jpost.updateGlobalTables();
+                      jpost.updateGlobalTables(false);
                       clearInterval(dataset_keyword_id);
                       dataset_keyword_id = -1;
                   },
@@ -101,7 +105,7 @@
               }
               protein_keyword_id = setInterval(
                   function() {
-                      jpost.updateGlobalTables();
+                      jpost.updateGlobalTables(false);
                       clearInterval(protein_keyword_id);
                       protein_keyword_id = -1;
                   },

@@ -16,8 +16,8 @@ jpost.globalProjectColumns = [
         width: 600,
     },
     {
-        title: 'Species List',
-        field: 'species_list',
+        title: 'Species',
+        field: 'species_label',
         width: 250
     },
     {
@@ -49,6 +49,11 @@ jpost.globalDatasetColumns = [
             return tag;
         },
         width: 350
+    },
+    {
+        title: 'Species',
+        field: 'species_label',
+        width: 250
     },
     {
         title: '#proteins',
@@ -97,11 +102,6 @@ jpost.globalProteinColumns = [
         field: 'length',
         width: 100,
         align: 'right'
-    },
-    {
-        title: 'Sequence',
-        field: 'sequence',
-        width: 350,
     }
 ];
 

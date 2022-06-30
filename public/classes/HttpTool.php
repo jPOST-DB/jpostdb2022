@@ -42,17 +42,17 @@
         /**
          * sets filter parameters
          */
-        public static function setFilterParameters( &$parameters ) {
-            $filters = array( 'species', 'sample_type', 'cell_line', 'organ', 'disease', 'modification', 'instrument', 'species_s', 'disease_s' );
-            foreach( $filters as $filter ) {
-                $array = self::getParameter( $filter );
-                if( $array !== null ) {
-                    $parameters[ $filter ] = join( ',', $array );
+        public static function setFilterParameters(&$parameters) {
+            $filters = array('species', 'sample_type', 'cell_line', 'organ', 'disease', 'modification', 'instrument', 'species_s', 'disease_s');
+            foreach($filters as $filter) {
+                $array = self::getParameter($filter);
+                if($array !== null) {
+                    $parameters[$filter] = join(',', $array);
                 }
             }
-            $keywords = array( 'dataset_keywords', 'protein_keywords' );
-            foreach( $keywords as $keyword ) {
-                $parameters[ $keyword ] = self::getParameter( $keyword );
+            $keywords = array('project_keywords', 'dataset_keywords', 'protein_keywords');
+            foreach($keywords as $keyword) {
+                $parameters[$keyword] = self::getParameter($keyword);
             }
         }
         

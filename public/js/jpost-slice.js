@@ -424,10 +424,10 @@ jpost.openNewSliceDialogWithParameters = function() {
 // open new slice dialog
 jpost.openNewSliceDialog = function() {
     jpost.slice = null;
-    $( '#dialog_slice_name' ).val( 'Slice' + ( jpost.idCount + 1 ) );
-    $( '#dialog_slice_description' ).val( '' );
+    $('#dialog_slice_name').val('Slice' + (jpost.idCount + 1));
+    $('#dialog_slice_description').val('');
     jpost.updateDialogTable();
-    $( '#slice_dialog' ).dialog(
+    $('#slice_dialog').dialog(
         {
             modal: true,
             title: 'New Slice',
@@ -435,26 +435,26 @@ jpost.openNewSliceDialog = function() {
             buttons: {
                 Create: function() {
                     var name = $( '#dialog_slice_name' ).val();
-                    if( name == null || name == '' ) {
-                        alert( "Slice Name is empty." );
+                    if(name == null || name == '') {
+                        alert('Slice Name is empty.');
                         return;
                     }
-                    for( var i = 0; i < jpost.slices.length; i++ ) {
-                        if( jpost.slices[ i ].name === name ) {
-                            alert( 'Name [' + name + '] is already exists.' );
+                    for(var i = 0; i < jpost.slices.length; i++) {
+                        if(jpost.slices[ i ].name === name) {
+                            alert('Name [' + name + '] is already exists.');
                             return;
                         }
                     }
-                    var description = $( '#dialog_slice_description' ).val();
+                    var description = $('#dialog_slice_description').val();
                     var datasets = jpost.getCheckedDatasets();
-                    if( datasets == 0 || datasets.length == 0 ) {
+                    if(datasets == 0 || datasets.length == 0) {
                         alert( "No datasets are selected.")
                         return;
                     }
 
-                    var string = datasets.join( ' ' );
+                    var string = datasets.join(' ');
 
-                    var dialog = $( this );
+                    var dialog = $(this);
 
                     $.ajax(
                         {
@@ -463,13 +463,13 @@ jpost.openNewSliceDialog = function() {
                             data: {
                                 dataset: string
                             },
-                            success: function( response ) {
-                                var species = JSON.parse( response );
+                            success: function(response) {
+                                var species = JSON.parse(response);
                                 var flag = true;
-                                if( species.length > 1 ) {
-                                    var message = 'There are multiple species in selected datasets. [' + species.join( ',' ) + ']' + "\n"
+                                if(species.length > 1) {
+                                    var message = 'There are multiple species in selected datasets. [' + species.join(',') + ']' + "\n"
                                                 + 'Are you sure to create a slice?';
-                                    if( window.confirm( message ) ) {
+                                    if(window.confirm(message)) {
                                         flag = true;
                                     }
                                     else {
@@ -477,22 +477,22 @@ jpost.openNewSliceDialog = function() {
                                     }
                                 }
 
-                                if( flag ) {
+                                if(flag) {
                                     var slice = {
                                         name: name,
                                         description: description,
                                         datasets: datasets
                                     };
-                                    jpost.addSlice( slice );
-                                    jpost.selectSlice( slice.id );
-                                    dialog.dialog( 'close' );
+                                    jpost.addSlice(slice);
+                                    jpost.selectSlice(slice.id);
+                                    dialog.dialog('close');
                                 }
                             }
                         }
                     );
                 },
                 Cancel: function() {
-                    $( this ).dialog( 'close' );
+                    $(this).dialog('close');
                 }
             }
         }
